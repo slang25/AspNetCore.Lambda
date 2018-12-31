@@ -15,20 +15,6 @@ function Test-IsWindows
     [environment]::OSVersion.Platform -ne "Unix"
 }
 
-function Test-IsMonoInstalled
-{
-    <#
-        .DESCRIPTION
-        Checks to see whether the current environment has the Mono framework installed.
-
-        .EXAMPLE
-        if (Test-IsMonoInstalled) { Write-Host "Mono is available." }
-    #>
-
-    $result = Invoke-Cmd "mono --version" -Silent
-    return $result.StartsWith("Mono JIT compiler version")
-}
-
 function Get-UbuntuVersion
 {
     <#
@@ -212,15 +198,6 @@ function Get-NetCoreTargetFramework ($projFile)
 
 function Invoke-DotNetCli ($cmd, $proj, $argv)
 {
-    # Currently dotnet test does not work for net461 on Linux/Mac
-    # See: https://github.com/Microsoft/vstest/issues/1318
-
-    if((!(Test-IsWindows) -and !(Test-IsMonoInstalled)) `
-        -or (!(Test-IsWindows) -and ($cmd -eq "test")))
-    {
-        $fw = Get-NetCoreTargetFramework($proj)
-        $argv = "-f $fw " + $argv
-    }
     Invoke-Cmd "dotnet $cmd $proj $argv"
 }
 
