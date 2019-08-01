@@ -13,7 +13,7 @@
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <DebugType>portable</DebugType>
     <OutputType>Library</OutputType>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsWindows Condition="'$(OS)' == 'Windows_NT'">true</IsWindows>
@@ -42,6 +42,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.*" />
+
+    <PackageReference Include="System.Text.Json" Version="4.6.0-preview7.19362.9" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.*" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.*" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.*" />
@@ -71,10 +74,6 @@
     <Compile Include="Negotiation.fs" />
     <Compile Include="HttpStatusCodeHandlers.fs" />
     <Compile Include="Middleware.fs" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(IsWindows)' != 'true' AND '$(TargetFramework)' == 'net461'">
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
   </ItemGroup>
 
 </Project>
